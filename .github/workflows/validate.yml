@@ -1,0 +1,22 @@
+name: Validate BioImage.IO collection test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get branch name to deploy to
+      id: get_branch
+      shell: bash
+      run: |
+        if [[ ${{ github.event.pull_request.head.ref }} -eq '' ]]; then branch=gh-pages; else branch=gh-pages-${{ github.event.pull_request.head.ref }}; fi
+        echo "::set-output name=branch::$branch"
+    - run: echo "Deploy to ${{ steps.get_branch.outputs.branch }} 🚀"
