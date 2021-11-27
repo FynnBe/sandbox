@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: check if PR branch still exists
-        run: |
-          [ -n '${{ git ls-remote --heads git@github.com:fynnbe/sandbox.git ${{ github.event.pull_request.head.ref }} }}' ]; exists=$?;
-          echo "::set-output name=exists::$exists"
       - name: delete PR branch ${{ github.event.pull_request.head.ref }}
-        if: ${{ steps.get_branch.pr_check.exists }}
+        if: git ls-remote --heads origin ${{ github.event.pull_request.head.ref }}
         run: git push origin --delete ${{ github.event.pull_request.head.ref }}
