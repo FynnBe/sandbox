@@ -10,6 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: show check
+        run: git ls-remote --heads origin ${{ github.event.pull_request.head.ref }}
+      - name: show check2
+        run: |
+          out=$(git ls-remote --heads origin ${{ github.event.pull_request.head.ref }})
+          echo $out
+      - name: test1
+        if: $(git ls-remote --heads origin ${{ github.event.pull_request.head.ref }})
+        run: echo running 1
+      - name: test2
+        if: -n $(git ls-remote --heads origin ${{ github.event.pull_request.head.ref }})
+        run: echo running 2
       - name: delete PR branch ${{ github.event.pull_request.head.ref }}
-        if: git ls-remote --heads origin ${{ github.event.pull_request.head.ref }}
+        if: -n $(git ls-remote --heads origin ${{ github.event.pull_request.head.ref }})
         run: git push origin --delete ${{ github.event.pull_request.head.ref }}
