@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "::set-output name=ls::)"
       - name: test 6
-        if: contains(steps.test4.ls, 'true')
+        if: contains(steps.test4.ls, 'false')
         run: |
           echo run
       - name: test 6b
