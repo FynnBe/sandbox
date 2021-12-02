@@ -11,20 +11,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: test 1
-        if: -n ' '
+        if: ' '
         run: run 1
       - name: test 2
-        if: -n ''
+        if: ''
         run: don't run 2
       - name: check if remote still exists
         id: pr_remote
         run: |
           echo "::set-output name=ls::$(git ls-remote --heads origin ${{ github.event.pull_request.head.ref }})"
       - name: test 3
-        if: -n steps.pr_remote.ls
+        if: steps.pr_remote.ls
         run: echo run 3
       - name: delete PR branch ${{ github.event.pull_request.head.ref }}
-        if: -n ${{ steps.pr_remote.ls }}
+        if: ${{ steps.pr_remote.ls }}
         run: git push origin --delete ${{ github.event.pull_request.head.ref }}
       - name: test 4
         id: test4
@@ -34,14 +34,19 @@ jobs:
         id: test5
         run: |
           echo "::set-output name=ls::'')"
-
+      - name: test 5b
+        id: test5b
+        run: |
+          echo "::set-output name=ls::)"
       - name: test 6
-        if: -n steps.test4
+        if: steps.test4
         run: |
           echo run
-
       - name: test 7
-        if: -n steps.test5
+        if: steps.test5
         run: |
           echo run
-    
+      - name: test 7b
+        if: steps.test5b
+        run: |
+          echo run
