@@ -1,11 +1,8 @@
-name: Validate BioImage.IO collection test
+name: test CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+    branches: [ * ]
 
 jobs:
   deploy:
@@ -13,10 +10,55 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Get branch name to deploy to
-      id: get_branch
-      shell: bash
+    - name: test 1
+      id: test1
       run: |
-        if [[ -n '${{ github.event.pull_request.head.ref }}' ]]; then branch=gh-pages-${{ github.event.pull_request.head.ref }}; else branch=gh-pages; fi
-        echo "::set-output name=branch::$branch"
-    - run: echo "Would deploy to ${{ steps.get_branch.outputs.branch }} 🚀"
+        echo "::set-output name=out::true"
+    - name: test 2
+      id: test2
+      run: |
+        echo "::set-output name=out::yes"
+    - name: test 3
+      id: test3
+      run: |
+        echo "::set-output name=out::"
+    - name: test 1-1
+      if: contains(steps.test1.out, true)
+      run: |
+        echo run
+    - name: test 1-2
+      if: "contains(steps.test1.out, true)"
+      run: |
+        echo run
+    - name: test 1-1n
+      if: contains(steps.test1.out, false)
+      run: |
+        echo run
+    - name: test 1-2n
+      if: "contains(steps.test1.out, false)"
+      run: |
+        echo run
+    - name: test 2-1
+      if: contains(steps.test2.out, yes)
+      run: |
+        echo run
+    - name: test 2-2
+      if: "contains(steps.test2.out, yes)"
+      run: |
+        echo run
+    - name: test 2-1n
+      if: contains(steps.test2.out, no)
+      run: |
+        echo run
+    - name: test 2-2n
+      if: "contains(steps.test2.out, no)"
+      run: |
+        echo run
+    - name: test 3-1
+      if: contains(steps.test3.out, no)
+      run: |
+        echo run
+    - name: test 3-2
+      if: "contains(steps.test3.out, no)"
+      run: |
+        echo run
