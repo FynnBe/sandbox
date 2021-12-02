@@ -1,8 +1,6 @@
 name: test CI
 
-on:
-  push:
-    branches: [ * ]
+on: push
 
 jobs:
   deploy:
