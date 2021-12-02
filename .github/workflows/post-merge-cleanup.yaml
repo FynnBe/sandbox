@@ -33,17 +33,17 @@ jobs:
         run: |
           echo "::set-output name=ls::)"
       - name: test 6
-        if: contains(${{ steps.test4.ls }}, 'true')
+        if: contains(steps.test4.ls, 'true')
         run: |
           echo run
       - name: test 6b
         if: ${{ steps.test4.ls }}
         run: |
           echo run
-      - name: test 6c
-        if: ${{ contains(${{ steps.test4.ls }}, 'true') }}
-        run: |
-          echo run
+#      - name: test 6c
+#        if: ${{ contains(${{ steps.test4.ls }}, 'true') }}
+#        run: |
+#          echo run
       - name: test 7
         if: steps.test5.ls
         run: |
