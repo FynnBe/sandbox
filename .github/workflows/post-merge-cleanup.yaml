@@ -10,22 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: test 1
-        if: ' '
-        run: echo run 1
-      - name: test 2
-        if: ''
-        run: echo don't run 2
-      - name: check if remote still exists
-        id: pr_remote
-        run: |
-          echo "::set-output name=ls::$(git ls-remote --heads origin ${{ github.event.pull_request.head.ref }})"
-      - name: test 3
-        if: steps.pr_remote.ls
-        run: echo run 3
-      - name: delete PR branch ${{ github.event.pull_request.head.ref }}
-        if: ${{ steps.pr_remote.ls }}
-        run: git push origin --delete ${{ github.event.pull_request.head.ref }}
+#      - name: check if remote still exists
+#        id: pr_remote
+#        run: |
+#          echo "::set-output name=ls::$(git ls-remote --heads origin ${{ github.event.pull_request.head.ref }})"
+#      - name: test 3
+#        if: steps.pr_remote.ls
+#        run: echo run 3
+#      - name: delete PR branch ${{ github.event.pull_request.head.ref }}
+#        if: ${{ steps.pr_remote.ls }}
+#        run: git push origin --delete ${{ github.event.pull_request.head.ref }}
       - name: test 4
         id: test4
         run: |
@@ -39,14 +33,14 @@ jobs:
         run: |
           echo "::set-output name=ls::)"
       - name: test 6
-        if: steps.test4
+        if: steps.test4.ls
         run: |
           echo run
       - name: test 7
-        if: steps.test5
+        if: steps.test5.ls
         run: |
           echo run
       - name: test 7b
-        if: steps.test5b
+        if: steps.test5b.ls
         run: |
           echo run
