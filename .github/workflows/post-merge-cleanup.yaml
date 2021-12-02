@@ -12,10 +12,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: test 1
         if: ' '
-        run: run 1
+        run: echo run 1
       - name: test 2
         if: ''
-        run: don't run 2
+        run: echo don't run 2
       - name: check if remote still exists
         id: pr_remote
         run: |
