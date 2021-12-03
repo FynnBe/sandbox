@@ -20,11 +20,11 @@ jobs:
       id: test3
       run: |
         echo "::set-output name=out::"
-    - name: test 1-1
+    - name: contains( ${{ steps.test1.out }}, 'la')
       if: contains(steps.test1.out, 'la')
       run: |
         echo run
-    - name: test 1-2
+    - name: contains(steps.test1.out, 'la')
       if: "contains(steps.test1.out, 'la')"
       run: |
         echo run
