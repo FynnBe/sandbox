@@ -8,55 +8,37 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: test 1
-      id: test1
+    - name: test string
+      id: teststring
       run: |
         echo "::set-output name=out::lala"
-    - name: test 2
-      id: test2
+    - name: testbool
+      id: testbool
       run: |
-        echo "::set-output name=out::'lala'"
-    - name: test 3
-      id: test3
+        echo "::set-output name=out::false"
+    - name: testbool2
+      id: testbool2
+      run: |
+        echo "::set-output name=out::true"
+    - name: testempty
+      id: testempty
       run: |
         echo "::set-output name=out::"
-    - name: test with output ${{ steps.test1.outputs.out }}
-      if: contains(steps.test1.outputs.out, 'la')
-      run: |
-        echo run
-    - name: test 1-1 with output ${{ steps.test1.outputs.out }}
-      if: "contains(steps.test1.outputs.out, 'la')"
-      run: |
-        echo run
-    - name: test 1-1n
-      if: contains(steps.test1.outputs.out, 'lu')
-      run: |
-        echo run
-    - name: test 1-2n
-      if: "contains(steps.test1.outputs.out, 'lu')"
-      run: |
-        echo run
-    - name: test 2-1 with ${{ steps.test2.outputs.out }}
-      if: contains(steps.test2.outputs.out, 'la')
-      run: |
-        echo run
-    - name: test 2-2
-      if: "contains(steps.test2.outputs.out, 'la')"
-      run: |
-        echo run
-    - name: test 2-1n
-      if: contains(steps.test2.outputs.out, 'lu')
-      run: |
-        echo run
-    - name: test 2-2n
-      if: "contains(steps.test2.outputs.out, 'lu')"
-      run: |
-        echo run
-    - name: test 3-1
-      if: contains(steps.test3.outputs.out, 'la')
-      run: |
-        echo run
-    - name: test 3-2
-      if: "contains(steps.test3.outputs.out, 'la')"
-      run: |
-        echo run
+    - name: run test string ${{ steps.teststring.outputs.out }}
+      if: contains(steps.teststring.outputs.out, 'la')
+      run: echo run ${{ steps.teststring.outputs.out }} contains 'la'
+    - name: skip test string ${{ steps.teststring.outputs.out }}
+      if: contains(steps.teststring.outputs.out, 'lu')
+      run: echo run ${{ steps.teststring.outputs.out }} contains 'lu'
+    - name: skip test bool ${{ steps.testbool.outputs.out }}
+      if: steps.testbool.outputs.out
+      run: echo run ${{ steps.testbool.outputs.out }}
+    - name: run test bool2 ${{ steps.testbool2.outputs.out }}
+      if: steps.testbool2.outputs.out
+      run: echo run ${{ steps.testbool2.outputs.out }}
+    - name: skip testempty
+      if: steps.testempty.outputs.out
+      run: echo empty
+    - name: skip testempty
+      if: contains(steps.testempty.outputs.out, 'something')
+      run: echo somehting in empty
