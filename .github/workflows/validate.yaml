@@ -20,43 +20,43 @@ jobs:
       id: test3
       run: |
         echo "::set-output name=out::"
-    - name: contains( ${{ steps.test1.out }}, 'la')
-      if: contains(steps.test1.out, 'la')
+    - name: test with output ${{ steps.test1.outputs.out }}
+      if: contains(steps.test1.outputs.out, 'la')
       run: |
         echo run
-    - name: contains(steps.test1.out, 'la')
-      if: "contains(steps.test1.out, 'la')"
+    - name: test 1-1 with output ${{ steps.test1.outputs.out }}
+      if: "contains(steps.test1.outputs.out, 'la')"
       run: |
         echo run
     - name: test 1-1n
-      if: contains(steps.test1.out, 'lu')
+      if: contains(steps.test1.outputs.out, 'lu')
       run: |
         echo run
     - name: test 1-2n
-      if: "contains(steps.test1.out, 'lu')"
+      if: "contains(steps.test1.outputs.out, 'lu')"
       run: |
         echo run
-    - name: test 2-1
-      if: contains(steps.test2.out, 'la')
+    - name: test 2-1 with ${{ steps.test2.outputs.out }}
+      if: contains(steps.test2.outputs.out, 'la')
       run: |
         echo run
     - name: test 2-2
-      if: "contains(steps.test2.out, 'la')"
+      if: "contains(steps.test2.outputs.out, 'la')"
       run: |
         echo run
     - name: test 2-1n
-      if: contains(steps.test2.out, 'lu')
+      if: contains(steps.test2.outputs.out, 'lu')
       run: |
         echo run
     - name: test 2-2n
-      if: "contains(steps.test2.out, 'lu')"
+      if: "contains(steps.test2.outputs.out, 'lu')"
       run: |
         echo run
     - name: test 3-1
-      if: contains(steps.test3.out, 'la')
+      if: contains(steps.test3.outputs.out, 'la')
       run: |
         echo run
     - name: test 3-2
-      if: "contains(steps.test3.out, 'la')"
+      if: "contains(steps.test3.outputs.out, 'la')"
       run: |
         echo run
