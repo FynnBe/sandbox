@@ -16,29 +16,22 @@ jobs:
       id: testbool
       run: |
         echo "::set-output name=out::false"
-    - name: testbool2
-      id: testbool2
-      run: |
-        echo "::set-output name=out::true"
     - name: testempty
       id: testempty
       run: |
         echo "::set-output name=out::"
-    - name: run test string ${{ steps.teststring.outputs.out }}
+    - name: run string ${{ steps.teststring.outputs.out }} contains la
       if: contains(steps.teststring.outputs.out, 'la')
-      run: echo run ${{ steps.teststring.outputs.out }} contains 'la'
-    - name: skip test string ${{ steps.teststring.outputs.out }}
+      run: echo run
+    - name: skip string ${{ steps.teststring.outputs.out }} contains lu
       if: contains(steps.teststring.outputs.out, 'lu')
-      run: echo run ${{ steps.teststring.outputs.out }} contains 'lu'
-    - name: skip test bool ${{ steps.testbool.outputs.out }}
+      run: echo run
+    - name: not skiped bool false ${{ steps.testbool.outputs.out }}
       if: steps.testbool.outputs.out
-      run: echo run ${{ steps.testbool.outputs.out }}
-    - name: run test bool2 ${{ steps.testbool2.outputs.out }}
-      if: steps.testbool2.outputs.out
-      run: echo run ${{ steps.testbool2.outputs.out }}
-    - name: skip testempty
+      run: echo run
+    - name: skip empty
       if: steps.testempty.outputs.out
-      run: echo empty
-    - name: skip testempty
+      run: echo run
+    - name: skip empty contains something
       if: contains(steps.testempty.outputs.out, 'something')
-      run: echo somehting in empty
+      run: echo run
