@@ -10,49 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-#      - name: check if remote still exists
-#        id: pr_remote
-#        run: |
-#          echo "::set-output name=ls::$(git ls-remote --heads origin ${{ github.event.pull_request.head.ref }})"
-#      - name: test 3
-#        if: steps.pr_remote.ls
-#        run: echo run 3
-#      - name: delete PR branch ${{ github.event.pull_request.head.ref }}
-#        if: ${{ steps.pr_remote.ls }}
-#        run: git push origin --delete ${{ github.event.pull_request.head.ref }}
-      - name: test 4
-        id: test4
+      - name: check if remote still exists
+        id: ls-remote
         run: |
-          echo "::set-output name=ls::true)"
-      - name: test 5
-        id: test5
-        run: |
-          echo "::set-output name=ls::false)"
-      - name: test 5b
-        id: test5b
-        run: |
-          echo "::set-output name=ls::)"
-      - name: test 6
-        if: contains(steps.test4.ls, 'false')
-        run: |
-          echo run
-      - name: test 6b
-        if: ${{ steps.test4.ls }}
-        run: |
-          echo run
-#      - name: test 6c
-#        if: ${{ contains(${{ steps.test4.ls }}, 'true') }}
-#        run: |
-#          echo run
-      - name: test 7
-        if: steps.test5.ls
-        run: |
-          echo run
-      - name: test 7b
-        if: steps.test5b.ls
-        run: |
-          echo run
-      - name: test 8
-        if: "false"
-        run: |
-          echo run
+          out=$(git ls-remote --heads origin ${{ github.event.pull_request.head.ref }})
+          echo "::set-output name=out::$out"
+      - name: delete PR branch ${{ github.event.pull_request.head.ref }}
+        if: steps.ls-remote.outputs.out
+        run: git push origin --delete ${{ github.event.pull_request.head.ref }}
