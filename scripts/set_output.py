@@ -1,2 +1,2 @@
 name = "out"
-print("::set-output name={name}::my output")
+print(f"::set-output name={name}::my output")
