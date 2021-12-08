@@ -1,0 +1,41 @@
+name: sync
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  known-resources:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+#    - name: install deps
+#      run: pip install ruamel.yaml dataclass-argparse
+#    - name: update known-resources.yaml
+#      run: python scripts/update_known_resources.py known-resources.yaml
+#        ...
+#    - name: Commit files
+#      run: |
+#        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+#        git config --local user.name "github-actions[bot]"
+#        git commit -m "Add changes" -a
+#    - name: Push changes
+#      uses: ad-m/github-push-action@master
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        branch: ${{ github.ref }}
+
+    - id: setout
+      run: python scripts/set_output.py
+    - name: check output ${{ steps.setout.outputs.out }}
+      run: echo ${{ steps.setout.outputs.out }}
+    - id: setout2
+      shell: bash -l {0}
+      run: python scripts/set_output.py
+    - name: check output2 ${{ steps.setout2.outputs.out }}
+      run: echo ${{ steps.setout2.outputs.out }}
+  
