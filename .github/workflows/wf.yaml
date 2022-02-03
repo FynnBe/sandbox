@@ -12,6 +12,7 @@ on:
 jobs:
   only-unmerged-pr-job:
     if: github.event.pull_request.merged == false
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
       - name: step for unmerged pr
