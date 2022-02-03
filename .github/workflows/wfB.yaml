@@ -9,5 +9,10 @@ jobs:
   some-job:
     runs-on: ubuntu-latest
     steps:
-      - name: github.event.number ${{ github.event.number }}
+      - name: github.event.workflow_run.workflow.event.number ${{ github.event.workflow_run.workflow.event.number }}
         run: echo here
+      - name: github.event.workflow_run.event.number ${{ github.event.workflow_run.event.number }}
+        run: echo here
+      - name: github.event.workflow.event.number ${{ github.event.workflow.event.number }}
+        run: echo here
+
