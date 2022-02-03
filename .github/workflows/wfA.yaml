@@ -11,9 +11,3 @@ jobs:
     steps:
       - name: github.event.number ${{ github.event.number }}
         run: echo here
-      - name: context.event.number ${{ context.event.number }}
-        run: echo here
-      - name: context.github.event.number ${{ context.github.event.number }}
-        run: echo here
-      - name: context.event_name ${{ context.event_name }}
-        run: echo here
