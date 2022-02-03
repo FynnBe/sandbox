@@ -14,12 +14,13 @@ jobs:
     if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     steps:
-      - name: "step for unmerged pr"
+      - name: step for unmerged pr
         run: |
-          echo github.event.pull_request
+          echo ${{ github.event.pull_request }}
 
   some-main-job:
     runs-on: ubuntu-latest
     steps:
       - name: main step
-        run: echo github.event
+        run: echo ${{ github.event }}
+      - run: echo ${{ github.event.pull_request.merged }}
