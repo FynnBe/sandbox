@@ -11,9 +11,3 @@ jobs:
     steps:
       - name: github.event.number ${{ github.event.number }}
         run: echo here
-      - name: context.workflow.event.number ${{ context.workflow.event.number }}
-        run: echo here
-      - name: context.workflow.github.event.number ${{ context.workflow.github.event.number }}
-        run: echo here
-      - name: context.workflow.event_name ${{ context.workflow.event_name }}
-        run: echo here
