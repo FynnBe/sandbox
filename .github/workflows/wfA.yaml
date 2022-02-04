@@ -3,7 +3,7 @@ name: wfA
 on:
   pull_request:
     branches: [ main ]
-    types: [ closed ]
+    types: [ opened, reopened, closed ]
 
 jobs:
   some-job:
@@ -22,4 +22,12 @@ jobs:
         name: preview
         path: dist
         retention-days: 1
-
+    - name: make artifact
+      run: |
+        echo ${{ github.event.number }} > pr_number.txt
+    - name: "Upload pr number"
+      uses: actions/upload-artifact@v2
+      with:
+        name: pr_number
+        path: pr_number.txt
+        retention-days: 1

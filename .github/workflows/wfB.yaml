@@ -11,9 +11,22 @@ jobs:
     steps:
       - name: github.event.workflow_run.workflow.event.number ${{ github.event.workflow_run.workflow.event.number }}
         run: echo here
-      - name: github.event.workflow_run.event.number ${{ github.event.workflow_run.event.number }}
+      - name: github.event.workflow_run.event.number ${{ github.event.workflow_run.number }}
         run: echo here
       - name: artifact url
         run: |
           echo ${{ github.event.workflow_run.artifacts_url }}
 
+      - name: get pr number artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: 'wfA'
+          workflow_conclusion: success
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          run_id: ${{ github.event.workflow_run.id }}
+          run_number: ${{ github.event.workflow_run.run_number }}
+          name: pr_number
+
+      - run: ls -l
+      - run: cat pr_number
+      - run: cat pr_number.txt
