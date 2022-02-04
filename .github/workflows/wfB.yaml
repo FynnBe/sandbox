@@ -13,6 +13,7 @@ jobs:
         run: echo here
       - name: github.event.workflow_run.event.number ${{ github.event.workflow_run.event.number }}
         run: echo here
-      - name: github.event.workflow.event.number ${{ github.event.workflow_run.artifacts_url }}
-        run: echo here
+      - name: artifact url
+        run: |
+          echo ${{ github.event.workflow_run.artifacts_url }}
 

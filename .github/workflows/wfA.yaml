@@ -9,5 +9,17 @@ jobs:
   some-job:
     runs-on: ubuntu-latest
     steps:
-      - name: github.event.number ${{ github.event.number }}
-        run: echo here
+    - uses: actions/checkout@v2
+    - name: github.event.number ${{ github.event.number }}
+      run: echo here
+    - name: make artifact
+      run: |
+        mkdir dist
+        echo lala > dist/lala.txt
+    - name: "Upload artifact"
+      uses: actions/upload-artifact@v2
+      with:
+        name: preview
+        path: dist
+        retention-days: 1
+
