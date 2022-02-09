@@ -9,7 +9,7 @@ on:
 
 jobs:
   some-job:
-    uses: fynnbe/sanbox/.github/workflows/wfB.yaml@main
+    uses: fynnbe/sandbox/.github/workflows/wfB.yaml@main
     with:
       message: "my message"
       ref: main
