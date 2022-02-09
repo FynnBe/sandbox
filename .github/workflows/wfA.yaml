@@ -12,4 +12,3 @@ jobs:
     uses: fynnbe/sandbox/.github/workflows/wfB.yaml@main
     with:
       message: "my message"
-      ref: main
