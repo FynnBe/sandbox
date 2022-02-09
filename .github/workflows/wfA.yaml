@@ -7,27 +7,7 @@ on:
 
 jobs:
   some-job:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: github.event.number ${{ github.event.number }}
-      run: echo here
-    - name: make artifact
-      run: |
-        mkdir dist
-        echo lala > dist/lala.txt
-    - name: "Upload artifact"
-      uses: actions/upload-artifact@v2
-      with:
-        name: preview
-        path: dist
-        retention-days: 1
-    - name: make artifact
-      run: |
-        echo ${{ github.event.number }} > pr_number.txt
-    - name: "Upload pr number"
-      uses: actions/upload-artifact@v2
-      with:
-        name: pr_number
-        path: pr_number.txt
-        retention-days: 1
+    uses: fynnbe/sanbox/.github/workflows/wfB.yaml@main
+    with:
+      message: "my message"
+      ref: main
