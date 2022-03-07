@@ -1,24 +1,19 @@
 name: wfB
 
 on:
-  workflow_dispatch:
-    inputs:
-      message:
-        description: "a message"
-        type: string
-        required: true
-  workflow_call:
-    inputs:
-      message:
-        description: "a message"
-        type: string
-        required: true
+  workflow_run:
+    workflows: [wfA]
+    types:
+    - completed
 
 jobs:
   some-job:
     runs-on: ubuntu-latest
     steps:
-      - name: github.event.inputs.message ${{ github.event.inputs.message }}
+      - name: ${{ github.event.number }}
         run: echo here
-      - name: inputs.message ${{ inputs.message }}
+      - name: ${{ github.event.workflow_run.number }}
         run: echo here
+      - name: ${{ github.event.workflow_run.event.number }}
+        run: echo here
+

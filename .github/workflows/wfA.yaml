@@ -1,6 +1,7 @@
 name: wfA
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
@@ -9,6 +10,6 @@ on:
 
 jobs:
   some-job:
-    uses: fynnbe/sandbox/.github/workflows/wfB.yaml@main
-    with:
-      message: "my message"
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo lala
