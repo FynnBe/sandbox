@@ -17,3 +17,5 @@ jobs:
       - name: ${{ github.event.workflow_run.event.number }}
         run: echo here
 
+      - name: ${{ github.event.workflow_run.number }}
+        run: echo here
