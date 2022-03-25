@@ -76,7 +76,8 @@ jobs:
         ignored = []
         remaining = []
         for d in env["dependencies"]:
-          if d.split("==")[0] in ignore_deps:
+          package_name = d.split("=")[0]
+          if package_name in ignore_deps:
             ignored.append(d)
           else:
             remaining.append(d)
