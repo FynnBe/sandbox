@@ -52,11 +52,31 @@ jobs:
         key: conda-${{ runner.os }}--${{ runner.arch }}--${{ matrix.v }}-${{ env.CACHE_NUMBER }}
       env:
         # Increase this value to reset cache if etc/example-environment.yml has not changed
-        CACHE_NUMBER: 0
+        CACHE_NUMBER: 1
       id: cache
     - name: Download ilastik env
       if: steps.cache.outputs.cache-hit != 'true'
       run: wget --output-document env.yaml ${{ matrix.env_url }}
+    - run: pip install ruamel.yaml
+      if: steps.cache.outputs.cache-hit != 'true'
+    - name: ignore unrelated packages
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: python
+      run: |
+        from pathlib import Path
+        from ruamel.yaml import YAML
+
+        yaml = YAML(typ="safe")
+
+        with Path("env.yaml").open() as f:
+          env = yaml.load(f)
+
+        ignore_deps = ["multi-hypotheses-tracking-with-gurobi", "gurobi-symlink"]
+        env["dependencies"] = [d for d in env["dependencies"] if d.split("==")[0] not in ignore_deps]
+
+        with Path("env.yaml".open("w") as f:
+          yaml.dump(env, f)
+
     - name: Update environment
       if: steps.cache.outputs.cache-hit != 'true'
       run: mamba env update -n ilastik-env -f env.yaml
