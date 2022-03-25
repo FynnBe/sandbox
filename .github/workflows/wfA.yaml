@@ -57,6 +57,9 @@ jobs:
       run: wget --output-document env.yaml ${{ matrix.env_url }}
     - run: pip install ruamel.yaml
       if: steps.cache.outputs.cache-hit != 'true'
+    - run: which python
+    - run: which python
+      shell: bash -l {0}
     - name: ignore unrelated packages
       if: steps.cache.outputs.cache-hit != 'true'
       shell: python
@@ -70,7 +73,16 @@ jobs:
           env = yaml.load(f)
 
         ignore_deps = ["multi-hypotheses-tracking-with-gurobi", "gurobi-symlink"]
-        env["dependencies"] = [d for d in env["dependencies"] if d.split("==")[0] not in ignore_deps]
+        ignored = []
+        remaining = []
+        for d in env["dependencies"]:
+          if d.split("==")[0] in ignore_deps:
+            ignored.append(d)
+          else:
+            remaining.append(d)
+
+        print("ignored", ignored)
+        env["dependencies"] = remaining
 
         with Path("env.yaml").open("w") as f:
           yaml.dump(env, f)
