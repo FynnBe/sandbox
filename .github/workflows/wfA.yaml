@@ -76,8 +76,7 @@ jobs:
         ignored = []
         remaining = []
         for d in env["dependencies"]:
-          package_name = d.split("=")[0]
-          if package_name in ignore_deps:
+          if d.split("=")[0] in ignore_deps:
             ignored.append(d)
           else:
             remaining.append(d)
@@ -93,4 +92,7 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: mamba env update -n ilastik-env -f env.yaml
     - run: echo TEST
+      shell: bash -l {0}
+    - run: python -c "import bioimageio.spec"
+    - run: python -c "import bioimageio.spec"
       shell: bash -l {0}
