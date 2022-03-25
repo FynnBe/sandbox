@@ -91,8 +91,5 @@ jobs:
       shell: bash -l {0}
       if: steps.cache.outputs.cache-hit != 'true'
       run: mamba env update -n ilastik-env -f env.yaml
-    - run: echo TEST
-      shell: bash -l {0}
-    - run: python -c "import bioimageio.spec"
     - run: python -c "import bioimageio.spec"
       shell: bash -l {0}
