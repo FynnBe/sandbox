@@ -33,9 +33,7 @@ jobs:
     needs: setup
     strategy:
       matrix: ${{ fromJson(needs.setup.outputs.version_matrix) }}
-    defaults:
-      run:
-        shell: bash -l {0}
+
     steps:
     - uses: actions/checkout@v2
     - name: Setup ilastik env
@@ -74,10 +72,12 @@ jobs:
         ignore_deps = ["multi-hypotheses-tracking-with-gurobi", "gurobi-symlink"]
         env["dependencies"] = [d for d in env["dependencies"] if d.split("==")[0] not in ignore_deps]
 
-        with Path("env.yaml".open("w") as f:
+        with Path("env.yaml").open("w") as f:
           yaml.dump(env, f)
 
     - name: Update environment
+      shell: bash -l {0}
       if: steps.cache.outputs.cache-hit != 'true'
       run: mamba env update -n ilastik-env -f env.yaml
     - run: echo TEST
+      shell: bash -l {0}
