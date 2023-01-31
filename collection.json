@@ -24,11 +24,12 @@
       "license": "MIT",
       "id": "bioimageio_workflows/run_model_inference_with_dask",
       "tags": ["inference", "workflow", "dask"],
-
       "covers": [],
       "download_count": 1,
+      "versions": [
+        "latest"
+      ],
     },
-// original content from https://raw.githubusercontent.com/bioimage-io/collection-bioimage-io/gh-pages/collection.json
     {
       "authors": [
         {
