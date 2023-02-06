@@ -35,6 +35,7 @@
       "description": "To run inference on arbitrary input tensors they are chunked such that considering halo and offset all inputs to the model have `tiles` shape.",
       "format_version": "0.2.3",
       "id": "bioimageio/inference_with_dask",
+      "icon": "⚙",
       "inputs": [
           {
               "description": "the (source/raw) model RDF that describes the model to be used for inference",
