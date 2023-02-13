@@ -23,5 +23,5 @@ jobs:
         environment-file: environments/general_1.yaml
         extra-specs: |
           python=${{ matrix.python-version }}
-    - run: python scripts/subproc.py
+    - run: python scripts/subproc.py --mamba-cmd micromamba
       shell: bash -l {0}

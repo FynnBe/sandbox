@@ -2,13 +2,14 @@ import json
 import subprocess
 from importlib.metadata import metadata
 
+import typer
 from packaging.version import Version
 
 
-def main():
+def main(mamba_cmd: str = "mamba"):
     # get latest released bioimageio.spec version
     mamba_repoquery = subprocess.run(
-        "mamba repoquery search -c conda-forge --json bioimageio.spec".split(" "),
+        f"{mamba_cmd} repoquery search -c conda-forge --json bioimageio.spec".split(" "),
         encoding="utf-8",
         capture_output=True,
         check=True,
@@ -32,4 +33,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    typer.run(main)
