@@ -18,6 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install Conda environment with Micromamba
+      id: create_env
       uses: mamba-org/provision-with-micromamba@main
       with:
         cache-downloads: true
@@ -26,8 +27,9 @@ jobs:
           python=100.5.9
       continue-on-error: true  # we inspect this step's outcome in dynamic_validation.py
       timeout-minutes: 1
+    - run: echo ${{ steps.create_env.outcome }}
     - name: install minimal script dependencies if val env failed
-      if: failure()
+      if: !steps.create_env.outcome == 'success'
       run: pip install typer bioimageio.spec
     - run: python --version
       shell: bash -l {0}
