@@ -23,6 +23,11 @@ jobs:
         cache-downloads: true
         environment-file: environments/general_1.yaml
         extra-specs: |
-          python=${{ matrix.python-version }}
-    - run: python scripts/subproc.py --mamba-cmd micromamba
+          python=100.5.9
+      continue-on-error: true  # we inspect this step's outcome in dynamic_validation.py
+      timeout-minutes: 1
+    - name: install minimal script dependencies if val env failed
+      if: failure()
+      run: pip install typer bioimageio.spec
+    - run: python --version
       shell: bash -l {0}
