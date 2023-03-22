@@ -20,14 +20,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ !(github.event.inputs.dry_run) }}
-      - run: echo ${{ !github.event.inputs.dry_run }}
       - run: echo ${{ github.event.inputs.dry_run }}
-      - run: echo github.event.inputs.dry_run
-      - run: echo lala
-        if: ${{ !(github.event.inputs.dry_run) }}
-      - run: echo lala
-        if: ${{ !github.event.inputs.dry_run }}
       - run: echo lala
         if: ${{ github.event.inputs.dry_run }}
       - run: echo lala
