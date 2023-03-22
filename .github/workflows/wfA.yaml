@@ -21,13 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.event.inputs.dryrun }}
-      - run: echo lala
-        if: ${{ github.event.inputs.dryrun }}
-      - run: echo lala
-        if: github.event.inputs.dryrun
-      - run: echo not lala
-        if: ${{ !github.event.inputs.dryrun }}
-      - run: echo lala true
-        if: ${{ github.event.inputs.dryrun == true }}
-      - run: echo lala true
-        if: github.event.inputs.dryrun == true
+      - run: echo yes
+        if: ${{ github.event.inputs.dryrun == true}}
+      - run: echo no
+        if: ${{ github.event.inputs.dryrun == false}}
