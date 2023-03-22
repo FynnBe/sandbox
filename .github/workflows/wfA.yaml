@@ -26,7 +26,7 @@ jobs:
       - run: echo lala
         if: github.event.inputs.dryrun
       - run: echo not lala
-        if: !github.event.inputs.dryrun
+        if: ${{ !github.event.inputs.dryrun }}
       - run: echo lala True
         if: ${{ github.event.inputs.dryrun == True }}
       - run: echo lala True
