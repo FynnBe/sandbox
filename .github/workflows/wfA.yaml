@@ -3,7 +3,7 @@ name: wfA
 on:
   workflow_dispatch:
     inputs:
-      dry_run:
+      dryrun:
         description: 'dy run'
         required: true
         default: true
@@ -20,8 +20,12 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event.inputs.dry_run }}
+      - run: echo ${{ github.event.inputs.dryrun }}
       - run: echo lala
-        if: ${{ github.event.inputs.dry_run }}
+        if: ${{ github.event.inputs.dryrun == true }}
       - run: echo lala
-        if: github.event.inputs.dry_run
+        if: github.event.inputs.dryrun == true
+      - run: echo lala
+        if: ${{ github.event.inputs.dryrun == true }}
+      - run: echo lala
+        if: github.event.inputs.dryrun == true
