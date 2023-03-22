@@ -22,9 +22,9 @@ jobs:
     steps:
       - run: echo ${{ github.event.inputs.dryrun }}
       - run: echo lala
-        if: ${{ github.event.inputs.dryrun == true }}
+        if: ${{ github.event.inputs.dryrun }}
       - run: echo lala
-        if: github.event.inputs.dryrun == true
+        if: github.event.inputs.dryrun
       - run: echo lala
         if: ${{ github.event.inputs.dryrun == true }}
       - run: echo lala
