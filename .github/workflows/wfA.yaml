@@ -1,0 +1,27 @@
+name: wfA
+
+on:
+  workflow_dispatch:
+    inputs:
+      dryrun:
+        description: 'dy run'
+        required: true
+        default: true
+        type: boolean
+
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    types: [ opened, reopened, closed ]
+
+jobs:
+
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ github.event.inputs.dryrun }}
+      - run: echo yes
+        if: ${{ github.event.inputs.dryrun == 'true'}}
+      - run: echo no
+        if: ${{ github.event.inputs.dryrun == 'false'}}
