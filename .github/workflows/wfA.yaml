@@ -35,4 +35,4 @@ jobs:
     if: always() &amp;&amp; ${{inputs.conclude}}
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'hello ${{string(inputs.conclude)}}'
+      - run: echo 'hello ${{inputs.conclude}}'
