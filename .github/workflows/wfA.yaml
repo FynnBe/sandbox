@@ -32,7 +32,7 @@ jobs:
         if: ${{ github.event.inputs.dryrun == 'false'}}
 
   conclude:
-    if: always() && ${{inputs.conclude}}
+    if: always() &amp;&amp; ${{inputs.conclude}}
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'hello'
+      - run: echo 'hello ${{string(inputs.conclude)}}'
