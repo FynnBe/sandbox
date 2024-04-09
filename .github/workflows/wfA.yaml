@@ -8,6 +8,11 @@ on:
         required: true
         default: true
         type: boolean
+      conclude:
+        description: run conclude job
+        required: true
+        default: false
+        type: boolean
 
   push:
     branches: [ main ]
@@ -25,3 +30,9 @@ jobs:
         if: ${{ github.event.inputs.dryrun == 'true'}}
       - run: echo no
         if: ${{ github.event.inputs.dryrun == 'false'}}
+
+  conclude:
+    if: always() && ${{inputs.conclude}}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'hello'
