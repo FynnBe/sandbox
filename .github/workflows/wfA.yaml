@@ -22,17 +22,6 @@ on:
 
 jobs:
 
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ github.event.inputs.dryrun }}
-      - run: echo yes
-        if: ${{ github.event.inputs.dryrun == 'true'}}
-      - run: echo no
-        if: ${{ github.event.inputs.dryrun == 'false'}}
+  call:
+    uses: fynnbe/sandbox/.github/workflows/wf_call.yaml@main
 
-  conclude:
-    if: inputs.conclude && always() 
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo 'hello ${{inputs.conclude}}'

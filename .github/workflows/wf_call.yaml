@@ -1,0 +1,29 @@
+name: wf_call
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: environment name
+        required: true
+        type: string
+
+
+jobs:
+
+  setup:
+    runs-on: ubuntu-latest
+    environment: ${{inputs.environment}}
+    env:
+      env_var: ${{var.my_var}}
+    steps:
+      - run: echo my var ${{var.my_var}}
+      - run: echo my var in env ${{env.my_var}}
+      - run: echo my prod secret ${{secrets.my_secret == 'production_secret'}}
+      - run: echo my testing secret ${{secrets.my_secret == 'testing_secret'}}
+      - run: echo my var in env ${{env.my_var}}
+      - shell: python
+        run: |
+          import os
+
+          print(os.environ["env_var"])
