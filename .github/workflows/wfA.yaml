@@ -3,25 +3,15 @@ name: wfA
 on:
   workflow_dispatch:
     inputs:
-      dryrun:
-        description: 'dy run'
+      environment:
+        description: 'env name'
         required: true
-        default: true
-        type: boolean
-      conclude:
-        description: run conclude job
-        required: true
-        default: false
-        type: boolean
+        type: string
 
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-    types: [ opened, reopened, closed ]
 
 jobs:
 
   call:
     uses: fynnbe/sandbox/.github/workflows/wf_call.yaml@main
-
+    with:
+      environment: ${{inputs.environment}}

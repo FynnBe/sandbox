@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{inputs.environment}}
     env:
-      env_var: ${{var.my_var}}
+      env_var: ${{vars.my_var}}
     steps:
-      - run: echo my var ${{var.my_var}}
+      - run: echo my var ${{vars.my_var}}
       - run: echo my var in env ${{env.my_var}}
       - run: echo my prod secret ${{secrets.my_secret == 'production_secret'}}
       - run: echo my testing secret ${{secrets.my_secret == 'testing_secret'}}
