@@ -1,0 +1,20 @@
+on:
+    issues:
+        types:
+            - opened
+
+permissions:
+    issues: write  # Allow the workflow to update the opened issue
+
+jobs:
+    upload:
+        runs-on: ubuntu-latest
+        if: startsWith(github.event.issue.title, '@bioimageiobot, please upload')
+        steps:
+          - run: Commenting that I do not know what to do with '${{github.event.issue.body}}'
+            if: ${{!startsWith(github.event.issue.body, 'https://')}}
+          - run: echo uploading ${{github.event.issue.body}}
+            if: ${{startsWith(github.event.issue.body, 'https://')}}
+
+
+
