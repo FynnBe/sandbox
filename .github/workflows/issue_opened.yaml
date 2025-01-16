@@ -7,14 +7,35 @@ permissions:
     issues: write  # Allow the workflow to update the opened issue
 
 jobs:
-    upload:
-        runs-on: ubuntu-latest
+    comment:
         if: startsWith(github.event.issue.title, '@bioimageiobot, please upload')
+        runs-on: ubuntu-latest
         steps:
-          - run: Commenting that I do not know what to do with '${{github.event.issue.body}}'
-            if: ${{!startsWith(github.event.issue.body, 'https://')}}
-          - run: echo uploading ${{github.event.issue.body}}
-            if: ${{startsWith(github.event.issue.body, 'https://')}}
+          - if: ${{startsWith(github.event.issue.body, 'https://')}}
+            run: gh issue comment "$NUMBER" --body "$BODY"
+            env:
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              GH_REPO: ${{ github.repository }}
+              NUMBER: ${{ github.event.issue.number }}
+              BODY: >
+                  :sparkles: Thank you for your contribution! :sparkles:
+                  I will attempt to upload '${{github.event.issue.body}}' to the bioimage.io collection.
+                  - if: ${{startsWith(github.event.issue.body, 'https://')}}
+          - if: ${{!startsWith(github.event.issue.body, 'https://')}}
+            run: gh issue comment "$NUMBER" --body "$BODY"
+            env:
+              GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              GH_REPO: ${{ github.repository }}
+              NUMBER: ${{ github.event.issue.number }}
+              BODY: >
+                  Unfortunately I do not understand '${{github.event.issue.body}}'.
 
+                  I was expecting to find a URL ZIP-file containing a packaged bioimage.io description.
+                  Please create a new issue if you do want to upload a bioimage.io package. Thank you! 🙏
 
+    upload:
+        if: startsWith(github.event.issue.title, '@bioimageiobot, please upload') && ${{startsWith(github.event.issue.body, 'https://')}}
+        uses: fynnbe/sandbox/.github/workflows/wf_call.yaml@main
+        with:
+          environment: test
 
